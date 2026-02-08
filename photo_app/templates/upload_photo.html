@@ -9,11 +9,11 @@
     <form method="post" enctype="multipart/form-data" class="space-y-4">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Upload</button>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full">Upload</button>
     </form>
 
-    <div class="mt-4">
-        <a href="{% url 'home' %}" class="text-blue-500 underline">Back to gallery</a>
+    <div class="mt-4 text-center">
+        <a href="{% url 'home' %}" class="text-blue-500 hover:underline">Back to gallery</a>
     </div>
 </div>
 {% endblock %}
