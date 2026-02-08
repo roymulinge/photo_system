@@ -24,8 +24,16 @@ def register(request):
     return render(request, "register.html")
 
 def home(request):
-   photos = Photo.objects.all().order_by("-created_at")
-   return render(request, "home.html", {"photos": photos})
+    tag = request.GET.get("tag")
+
+    photos = Photo.objects.all()
+
+    if tag:
+        photos = photos.filter(tags__icontains=tag)
+
+    photos = photos.order_by("-created_at")
+
+    return render(request, "home.html", {"photos": photos, "tag": tag})
 # View for photo detail and like/unlike functionality
 def photo_detail(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
