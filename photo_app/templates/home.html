@@ -4,6 +4,9 @@
     <title>Photo Gallery</title>
 </head>
 <body>
+    {% if user.is_authenticated %}
+    <a href="{% url 'upload_photo' %}">Upload Photo</a>
+    {% endif %}
     <h1>Gallery</h1>
 
     {% if photos %}

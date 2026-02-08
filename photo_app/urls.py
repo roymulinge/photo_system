@@ -9,4 +9,5 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("photo/<int:photo_id>/", views.photo_detail, name="photo_detail"),
     path("photo/<int:photo_id>/like/", views.toggle_like, name="toggle_like"),
+    path("upload/", views.upload_photo, name="upload_photo"),
 ]
