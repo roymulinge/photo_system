@@ -3,20 +3,20 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<div class="max-w-xl mx-auto bg-white shadow rounded p-6 text-center">
+<div class="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-12 text-center">
     <h1 class="text-3xl font-bold mb-4">{{ profile.user.username }}</h1>
 
     {% if profile.profile_pic %}
-        <img src="{{ profile.profile_pic.url }}" alt="{{ profile.user.username }}" class="w-36 h-36 mx-auto rounded-full mb-4 object-cover">
+        <img src="{{ profile.profile_pic.url }}" alt="{{ profile.user.username }}" class="w-36 h-36 mx-auto rounded-full mb-4 object-cover shadow-md">
     {% else %}
-        <div class="w-36 h-36 mx-auto rounded-full bg-gray-200 mb-4 flex items-center justify-center">
+        <div class="w-36 h-36 mx-auto rounded-full bg-gray-200 mb-4 flex items-center justify-center shadow-inner">
             <span class="text-gray-500">No Image</span>
         </div>
     {% endif %}
 
-    <p class="mb-4 text-gray-700">{{ profile.bio }}</p>
+    <p class="mb-6 text-gray-700">{{ profile.bio }}</p>
 
-    <a href="{% url 'edit_profile' %}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+    <a href="{% url 'edit_profile' %}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded shadow transition">
         Edit Profile
     </a>
 </div>
