@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from .forms import PhotoForm
-from photo_app.models import Photo
-from django.shortcuts import render, get_object_or_404, redirect
+
 from django.contrib.auth.decorators import login_required
 from .models import Photo
 
