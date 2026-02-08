@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login
-
+from .forms import PhotoForm
 from photo_app.models import Photo
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
@@ -55,3 +55,17 @@ def toggle_like(request, photo_id):
         photo.liked_by.add(request.user)
 
     return redirect("photo_detail", photo_id=photo.id)
+
+@login_required
+def upload_photo(request):
+    if request.method == "POST":
+        form = PhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.save(commit=False)
+            photo.owner = request.user
+            photo.save()
+            return redirect("home")
+    else:
+        form = PhotoForm()
+
+    return render(request, "upload_photo.html", {"form": form})
