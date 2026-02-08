@@ -121,5 +121,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Default primary key field type
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "login"
+# Media files
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

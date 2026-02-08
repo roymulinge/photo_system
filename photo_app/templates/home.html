@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photo Gallery</title>
+</head>
+<body>
+    <h1>Gallery</h1>
+
+    {% if photos %}
+        <ul>
+            {% for photo in photos %}
+                <li>
+                    <a href="{% url 'photo_detail' photo.id %}">
+                        <img src="{{ photo.image.url }}" width="200" />
+                    </a>
+                    <p>{{ photo.title }}</p>
+                    <p>❤️ {{ photo.liked_by.count }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No photos yet.</p>
+    {% endif %}
+</body>
+</html>
