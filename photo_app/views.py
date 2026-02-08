@@ -5,7 +5,9 @@ from .forms import PhotoForm
 
 from django.contrib.auth.decorators import login_required
 from .models import Photo
-
+from .models import Profile
+from django.contrib.auth.forms import UserChangeForm
+from django import forms
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -76,3 +78,27 @@ def upload_photo(request):
         form = PhotoForm()
 
     return render(request, "upload_photo.html", {"form": form})
+
+@login_required
+def profile_view(request):
+    profile = request.user.profile
+    return render(request, "profile.html", {"profile": profile})
+
+@login_required
+def edit_profile(request):
+    profile = request.user.profile
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect("profile")
+    else:
+        form = ProfileForm(instance=profile)
+
+    return render(request, "profile_edit.html", {"form": form})
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["bio", "profile_pic"]
