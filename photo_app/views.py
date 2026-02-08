@@ -20,4 +20,6 @@ def register(request):
     return render(request, "register.html")
 
 def home(request):
+    if request.user.is_authenticated:
+        return HttpResponse(f"Profile Ok:{request.user.profile}")
     return HttpResponse("Welcome to the Photo App!")
