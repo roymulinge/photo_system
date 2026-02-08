@@ -1,28 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ photo.title }}</title>
-</head>
-<body>
-    <a href="{% url 'home' %}">← Back</a>
+{% extends "base.html" %}
 
-    <h1>{{ photo.title }}</h1>
-    <img src="{{ photo.image.url }}" width="400" />
+{% block title %}{{ photo.title }}{% endblock %}
 
-    <p>{{ photo.description }}</p>
-    <p>❤️ {{ photo.liked_by.count }}</p>
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white shadow rounded p-6">
+    <a href="{% url 'home' %}" class="text-blue-600 hover:underline mb-4 inline-block">← Back to Gallery</a>
+
+    <h1 class="text-3xl font-bold mb-4">{{ photo.title }}</h1>
+
+    <img src="{{ photo.image.url }}" class="w-full rounded mb-4" alt="{{ photo.title }}">
+
+    <p class="mb-4">{{ photo.description }}</p>
+
+    <p class="mb-4 text-lg">❤️ {{ photo.liked_by.count }}</p>
 
     {% if user.is_authenticated %}
         <form method="post" action="{% url 'toggle_like' photo.id %}">
             {% csrf_token %}
             {% if is_liked %}
-                <button type="submit">Unlike</button>
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Unlike</button>
             {% else %}
-                <button type="submit">Like</button>
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Like</button>
             {% endif %}
         </form>
     {% else %}
-        <p><a href="/login/">Login to like</a></p>
+        <p><a href="{% url 'login' %}" class="text-blue-600 hover:underline">Login to like</a></p>
     {% endif %}
-</body>
-</html>
+</div>
+{% endblock %}
