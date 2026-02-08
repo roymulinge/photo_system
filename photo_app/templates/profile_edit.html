@@ -3,13 +3,14 @@
 {% block title %}Edit Profile{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto bg-white shadow rounded p-6">
-    <h1 class="text-3xl font-bold mb-6">Edit Profile</h1>
+<div class="max-w-2xl mx-auto bg-white shadow-lg rounded p-6 mt-12">
+    <h1 class="text-3xl font-bold mb-6 text-center">Edit Profile</h1>
 
     <form method="post" enctype="multipart/form-data" class="space-y-4">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+        {{ form.as_p|safe }}
+        
+        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition">
             Save Changes
         </button>
     </form>
