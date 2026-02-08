@@ -1,33 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Photo Gallery</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto px-4 py-6">
     {% if user.is_authenticated %}
-    <a href="{% url 'upload_photo' %}">Upload Photo</a>
+        <div class="mb-4">
+            <a href="{% url 'upload_photo' %}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Upload Photo</a>
+        </div>
     {% endif %}
 
     {% if tag %}
-    <p>Showing results for tag: <strong>{{ tag }}</strong></p>
-    <a href="{% url 'home' %}">Clear filter</a>
+        <div class="mb-4">
+            <p>Showing results for tag: <strong>{{ tag }}</strong></p>
+            <a href="{% url 'home' %}" class="text-blue-500 underline">Clear filter</a>
+        </div>
     {% endif %}
-    <h1>Gallery</h1>
+
+    <h1 class="text-3xl font-bold mb-6">Gallery</h1>
 
     {% if photos %}
-        <ul>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {% for photo in photos %}
-                <li>
+                <div class="border rounded shadow hover:shadow-lg transition duration-200">
                     <a href="{% url 'photo_detail' photo.id %}">
-                        <img src="{{ photo.image.url }}" width="200" />
+                        <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="w-full h-48 object-cover rounded-t">
                     </a>
-                    <p>{{ photo.title }}</p>
-                    <p>❤️ {{ photo.liked_by.count }}</p>
-                </li>
+                    <div class="p-4">
+                        <p class="font-semibold">{{ photo.title }}</p>
+                        <p class="text-sm text-gray-600">❤️ {{ photo.liked_by.count }}</p>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
         <p>No photos yet.</p>
     {% endif %}
-</body>
-</html>
+</div>
+{% endblock %}
