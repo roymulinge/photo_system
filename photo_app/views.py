@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login
-from django.http import HttpResponse
+
+from photo_app.models import Photo
+
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -20,6 +22,5 @@ def register(request):
     return render(request, "register.html")
 
 def home(request):
-    if request.user.is_authenticated:
-        return HttpResponse(f"Profile Ok:{request.user.profile}")
-    return HttpResponse("Welcome to the Photo App!")
+   photos = Photo.objects.all().order_by("-created_at")
+   return render(request, "home.html", {"photos": photos})
