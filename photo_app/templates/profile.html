@@ -1,9 +1,23 @@
-<h1>{{ profile.user.username }}</h1>
+{% extends "base.html" %}
 
-{% if profile.profile_pic %}
-<img src="{{ profile.profile_pic.url }}" width="150">
-{% endif %}
+{% block title %}Profile{% endblock %}
 
-<p>{{ profile.bio }}</p>
+{% block content %}
+<div class="max-w-xl mx-auto bg-white shadow rounded p-6 text-center">
+    <h1 class="text-3xl font-bold mb-4">{{ profile.user.username }}</h1>
 
-<a href="{% url 'edit_profile' %}">Edit Profile</a>
+    {% if profile.profile_pic %}
+        <img src="{{ profile.profile_pic.url }}" alt="{{ profile.user.username }}" class="w-36 h-36 mx-auto rounded-full mb-4 object-cover">
+    {% else %}
+        <div class="w-36 h-36 mx-auto rounded-full bg-gray-200 mb-4 flex items-center justify-center">
+            <span class="text-gray-500">No Image</span>
+        </div>
+    {% endif %}
+
+    <p class="mb-4 text-gray-700">{{ profile.bio }}</p>
+
+    <a href="{% url 'edit_profile' %}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+        Edit Profile
+    </a>
+</div>
+{% endblock %}
