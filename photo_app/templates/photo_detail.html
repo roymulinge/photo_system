@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ photo.title }}</title>
+</head>
+<body>
+    <a href="{% url 'home' %}">← Back</a>
+
+    <h1>{{ photo.title }}</h1>
+    <img src="{{ photo.image.url }}" width="400" />
+
+    <p>{{ photo.description }}</p>
+    <p>❤️ {{ photo.liked_by.count }}</p>
+
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'toggle_like' photo.id %}">
+            {% csrf_token %}
+            {% if is_liked %}
+                <button type="submit">Unlike</button>
+            {% else %}
+                <button type="submit">Like</button>
+            {% endif %}
+        </form>
+    {% else %}
+        <p><a href="/login/">Login to like</a></p>
+    {% endif %}
+</body>
+</html>
