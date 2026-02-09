@@ -1,19 +1,45 @@
 {% extends "base.html" %}
-
 {% block title %}Upload Photo{% endblock %}
 
 {% block content %}
-<div class="max-w-lg mx-auto bg-white p-6 rounded shadow mt-8">
-    <h1 class="text-2xl font-bold mb-4">Upload Photo</h1>
+<div class="flex justify-center py-16 px-4">
+  <div class="w-full max-w-lg bg-white rounded-2xl shadow-lg p-8">
 
-    <form method="post" enctype="multipart/form-data" class="space-y-4">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full">Upload</button>
+    <h1 class="text-3xl font-semibold text-center text-zinc-900 mb-8">
+      Upload Your Photo
+    </h1>
+
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+      {% csrf_token %}
+
+      <!-- Photo input -->
+      <div class="flex flex-col">
+        <label class="text-sm text-zinc-600 mb-1">Select Image</label>
+        {{ form.image }}
+      </div>
+
+      <!-- Title input -->
+      <div class="flex flex-col">
+        <label class="text-sm text-zinc-600 mb-1">Title</label>
+        {{ form.title }}
+      </div>
+
+      <!-- Description input -->
+      <div class="flex flex-col">
+        <label class="text-sm text-zinc-600 mb-1">Description</label>
+        {{ form.description }}
+      </div>
+
+      <button type="submit" 
+              class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-2 rounded-xl shadow hover:opacity-90 transition">
+        Upload
+      </button>
     </form>
 
-    <div class="mt-4 text-center">
-        <a href="{% url 'home' %}" class="text-blue-500 hover:underline">Back to gallery</a>
-    </div>
+    <p class="mt-6 text-center text-zinc-500">
+      <a href="{% url 'home' %}" class="text-blue-500 hover:underline">Back to gallery</a>
+    </p>
+
+  </div>
 </div>
 {% endblock %}

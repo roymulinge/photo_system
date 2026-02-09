@@ -1,18 +1,44 @@
 {% extends "base.html" %}
-
 {% block title %}Edit Profile{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto bg-white shadow-lg rounded p-6 mt-12">
-    <h1 class="text-3xl font-bold mb-6 text-center">Edit Profile</h1>
+<div class="flex justify-center py-16 px-4">
+  <div class="w-full max-w-lg bg-white rounded-2xl shadow-lg p-8">
 
-    <form method="post" enctype="multipart/form-data" class="space-y-4">
-        {% csrf_token %}
-        {{ form.as_p|safe }}
-        
-        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition">
-            Save Changes
-        </button>
+    <h1 class="text-3xl font-semibold text-center text-zinc-900 mb-8">
+      Edit Profile
+    </h1>
+
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+      {% csrf_token %}
+
+      <!-- If you have avatar field -->
+      {% if form.avatar %}
+      <div class="flex flex-col items-center">
+        <label class="mb-2 text-sm text-zinc-500">Profile Picture</label>
+        {{ form.avatar }}
+      </div>
+      {% endif %}
+
+      <!-- Other fields -->
+      <div class="space-y-4">
+        {% for field in form %}
+          {% if field.name != "avatar" %}
+          <div class="flex flex-col">
+            <label for="{{ field.id_for_label }}" class="text-sm text-zinc-600 mb-1">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+              <p class="text-red-500 text-sm mt-1">{{ field.errors }}</p>
+            {% endif %}
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-2 rounded-xl shadow hover:opacity-90 transition">
+        Save Changes
+      </button>
     </form>
+  </div>
 </div>
 {% endblock %}

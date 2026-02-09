@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Photo App{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>{% block title %}Photo App{% endblock %}</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {}
+      }
+    }
+  </script>
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
 
-    <!-- Navbar -->
-    <nav class="bg-blue-600 text-white p-4 flex justify-between items-center">
-    <a href="{% url 'home' %}" class="font-bold text-xl">Photo App</a>
-    <div class="space-x-4 flex items-center">
-        {% if user.is_authenticated %}
-            <span class="mr-2">Hi, {{ user.username }}</span>
-            <a href="{% url 'home' %}" class="hover:underline">Gallery</a>
-            <a href="{% url 'upload_photo' %}" class="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100">Upload</a>
-            <a href="{% url 'profile' %}" class="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100">Profile</a>
-
-            <!-- Logout as POST form -->
-            <form method="post" action="{% url 'logout' %}" class="inline">
-                {% csrf_token %}
-                <button type="submit" class="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100">
-                    Logout
-                </button>
-            </form>
-
-        {% else %}
-            <a href="{% url 'login' %}" class="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100">Login</a>
-            <a href="{% url 'register' %}" class="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100">Register</a>
-        {% endif %}
+<body class="bg-white text-zinc-900 min-h-screen flex flex-col font-sans">
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-md border-b border-zinc-200">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="{% url 'home' %}" class="text-xl font-bold tracking-tight">
+      Photo<span class="text-pink-500">App</span>
+    </a>
+    <div class="flex items-center gap-4 text-sm text-zinc-600">
+      {% if user.is_authenticated %}
+        <a href="{% url 'upload_photo' %}" class="hover:text-pink-500 transition transform hover:scale-105">Upload</a>
+        <a href="{% url 'profile' %}" class="hover:text-pink-500 transition transform hover:scale-105">Profile</a>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button class="hover:text-pink-500 transition transform hover:scale-105">Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="hover:text-pink-500 transition transform hover:scale-105">Login</a>
+        <a href="{% url 'register' %}" class="hover:text-pink-500 transition transform hover:scale-105">Register</a>
+      {% endif %}
     </div>
+  </div>
 </nav>
 
-    <main class="flex-1 container mx-auto p-4">
-        {% block content %}{% endblock %}
-    </main>
+  <main class="flex-1 max-w-7xl mx-auto px-6 py-8">
+    {% block content %}{% endblock %}
+  </main>
 
-    <footer class="bg-gray-200 text-gray-700 text-center p-4 mt-auto">
-        &copy; {{ now.year }} Photo App. All rights reserved.
-    </footer>
+  <footer class="text-center text-sm text-zinc-400 py-6 bg-white/80 backdrop-blur-md shadow-inner">
+  © {{ now.year }} Photo App
+</footer>
 
 </body>
 </html>

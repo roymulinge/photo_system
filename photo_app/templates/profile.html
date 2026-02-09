@@ -1,23 +1,33 @@
 {% extends "base.html" %}
-
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<div class="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-12 text-center">
-    <h1 class="text-3xl font-bold mb-4">{{ profile.user.username }}</h1>
+<div class="flex justify-center py-16 px-4">
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 text-center">
 
+    <!-- Username -->
+    <h1 class="text-3xl font-semibold text-zinc-900 mb-6">{{ profile.user.username }}</h1>
+
+    <!-- Profile picture -->
     {% if profile.profile_pic %}
-        <img src="{{ profile.profile_pic.url }}" alt="{{ profile.user.username }}" class="w-36 h-36 mx-auto rounded-full mb-4 object-cover shadow-md">
+      <img src="{{ profile.profile_pic.url }}" 
+           alt="{{ profile.user.username }}" 
+           class="w-36 h-36 mx-auto rounded-full mb-6 object-cover shadow-md">
     {% else %}
-        <div class="w-36 h-36 mx-auto rounded-full bg-gray-200 mb-4 flex items-center justify-center shadow-inner">
-            <span class="text-gray-500">No Image</span>
-        </div>
+      <div class="w-36 h-36 mx-auto rounded-full bg-zinc-200 mb-6 flex items-center justify-center shadow-inner">
+        <span class="text-zinc-500">No Image</span>
+      </div>
     {% endif %}
 
-    <p class="mb-6 text-gray-700">{{ profile.bio }}</p>
+    <!-- Bio -->
+    <p class="text-zinc-700 mb-8">{{ profile.bio }}</p>
 
-    <a href="{% url 'edit_profile' %}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded shadow transition">
-        Edit Profile
+    <!-- Edit profile button -->
+    <a href="{% url 'edit_profile' %}" 
+       class="inline-block w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-2 rounded-xl shadow hover:opacity-90 transition">
+      Edit Profile
     </a>
+
+  </div>
 </div>
 {% endblock %}
