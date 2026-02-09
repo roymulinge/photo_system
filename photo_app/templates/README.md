@@ -57,3 +57,25 @@ photo_app/
 │ └── profile.html
 ├── db.sqlite3
 └── manage.py
+
+
+---
+
+## How It Works
+
+1. Users register and log in
+2. Each user automatically gets a profile
+3. Logged-in users can upload photos
+4. Photos appear in the gallery
+5. Users can open photos and like or unlike them
+6. Likes are tracked per user
+
+---
+
+## Setup Instructions
+
+1. Clone the repository
+2. Create a virtual environment
+3. Install dependencies
+   ```bash
+   pip install -r requirements.txt
