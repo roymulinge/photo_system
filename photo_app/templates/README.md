@@ -41,3 +41,19 @@ The project emphasizes **backend fundamentals**, **Django architecture**, and **
 ---
 
 ## Project Structure
+photo_app/
+├── photos/
+│ ├── models.py
+│ ├── views.py
+│ ├── forms.py
+│ ├── templates/
+│ └── urls.py
+├── media/
+├── templates/
+│ ├── base.html
+│ ├── home.html
+│ ├── photo_detail.html
+│ ├── upload_photo.html
+│ └── profile.html
+├── db.sqlite3
+└── manage.py
