@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from .forms import PhotoForm
 
 from django.contrib.auth.decorators import login_required
-from .models import Photo
+from .models import Photo,Tag
 from .models import Profile
 from django import forms
 from django.contrib.auth.views import PasswordChangeView
@@ -39,16 +39,19 @@ def register(request):
     return render(request, "register.html")
 
 def home(request):
-    tag = request.GET.get("tag")
+    tag_name = request.GET.get("tag")  # ?tag=nature
+    photos = Photo.objects.all().order_by("-created_at")
 
-    photos = Photo.objects.all()
+    if tag_name:
+        photos = photos.filter(tags__name__iexact=tag_name)  # case-insensitive match
 
-    if tag:
-        photos = photos.filter(tags__icontains=tag)
+    all_tags = Tag.objects.all()  # for displaying in UI
 
-    photos = photos.order_by("-created_at")
-
-    return render(request, "home.html", {"photos": photos, "tag": tag})
+    return render(request, "home.html", {
+        "photos": photos,
+        "tag_name": tag_name,
+        "all_tags": all_tags
+    })
 # View for photo detail and like/unlike functionality
 def photo_detail(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
