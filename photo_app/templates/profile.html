@@ -4,6 +4,14 @@
 {% block content %}
 <div class="flex justify-center py-16 px-4">
   <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 text-center">
+   
+    {% if messages %}
+        {% for message in messages %}
+            <div class="bg-green-100 text-green-800 p-2 rounded mb-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <!-- Username -->
     <h1 class="text-3xl font-semibold text-zinc-900 mb-6">{{ profile.user.username }}</h1>
@@ -26,6 +34,11 @@
     <a href="{% url 'edit_profile' %}" 
        class="inline-block w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-2 rounded-xl shadow hover:opacity-90 transition">
       Edit Profile
+    </a>
+
+    <a href="{% url 'password_change' %}" 
+   class="inline-block w-full mt-2 bg-gradient-to-r from-blue-500 to-teal-500 text-white font-semibold py-2 rounded-xl shadow hover:opacity-90 transition">
+   Change Password
     </a>
 
   </div>

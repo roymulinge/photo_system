@@ -6,8 +6,21 @@ from .forms import PhotoForm
 from django.contrib.auth.decorators import login_required
 from .models import Photo
 from .models import Profile
-from django.contrib.auth.forms import UserChangeForm
 from django import forms
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from django.contrib import messages
+
+
+class MyPasswordChangeView(PasswordChangeView):
+    template_name = "password_change.html"  
+    success_url = reverse_lazy("profile")  
+
+    def form_valid(self, form):
+        messages.success(self.request, "Your password has been changed successfully!")
+        return super().form_valid(form)
+    
+
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
