@@ -1,5 +1,5 @@
 from django import forms
-from .models import Photo
+from .models import Photo,Tag
 from django.contrib.auth.forms import PasswordChangeForm
 
 class PhotoForm(forms.ModelForm):
