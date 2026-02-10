@@ -3,6 +3,11 @@ from .models import Photo
 from django.contrib.auth.forms import PasswordChangeForm
 
 class PhotoForm(forms.ModelForm):
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple  
+    )
     class Meta:
         model = Photo
         fields = ["title", "description", "image", "tags"]
