@@ -1,16 +1,19 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-from .views import MyPasswordChangeView
+from .views import PasswordChangeView
 
 urlpatterns = [
     
-    path(
-        "password/change/",
-        MyPasswordChangeView.as_view(),
-        name="password_change",
-       ),
-
+    
+path(
+    "password/change/",
+    PasswordChangeView.as_view(
+        template_name="accounts/password_change.html",
+        success_url="/profile/"  
+    ),
+    name="password_change",
+),
 
     path("register/", views.register, name="register"),
     path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),

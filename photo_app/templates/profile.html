@@ -13,6 +13,14 @@
         {% endfor %}
     {% endif %}
 
+    {% if messages %}
+  <div class="mb-4 text-green-600 font-medium">
+      {% for message in messages %}
+          {{ message }}
+      {% endfor %}
+  </div>
+{% endif %} 
+
     <!-- Username -->
     <h1 class="text-3xl font-semibold text-zinc-900 mb-6">{{ profile.user.username }}</h1>
 

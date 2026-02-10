@@ -95,6 +95,8 @@ def upload_photo(request):
 @login_required
 def profile_view(request):
     profile = request.user.profile
+    if 'password' in request.GET:
+        messages.success(request, "Password changed successfully!")
     return render(request, "profile.html", {"profile": profile})
 
 @login_required
