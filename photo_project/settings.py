@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY',default='unsafe-secret-key-for-dev')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -88,12 +88,12 @@ if os.environ.get("DATABASE_URL"):
 else:
     DATABASES = {
         'default': {
-            'ENGINE': config('ENGINE'),
-            'NAME': config('NAME'),
-            'USER': config('USER'),
-            'PASSWORD': config('PASSWORD'),
-            'HOST': config('HOST'),
-            'PORT': config('PORT'),
+            'ENGINE': config('ENGINE', default='django.db.backends.sqlite3'),
+            'NAME': config('NAME', default='db.sqlite3'),
+            'USER': config('USER', default=''),
+            'PASSWORD': config('PASSWORD', default=''),
+            'HOST': config('HOST', default=''),
+            'PORT': config('PORT', default=''),
         }
     }
 CLOUDINARY_STORAGE = {
