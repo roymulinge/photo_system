@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -14,8 +15,8 @@ class Profile(models.Model):
 
     )
     bio = models.TextField(blank=True)
-    profile_pic = models.ImageField(
-        upload_to="profiles/", 
+    profile_pic = CloudinaryField(
+        'profile_pic', 
         blank=True,
         null=True
     )
@@ -44,7 +45,7 @@ class Photo(models.Model):
     )
     title =models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to="photos/")
+    image = CloudinaryField('image')
     tags = models.CharField(
         max_length=255,
         blank=True,
