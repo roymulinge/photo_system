@@ -1,1 +1,1 @@
-web: gunicorn lensbox.wsgi
+web: gunicorn photo_system.wsgi
